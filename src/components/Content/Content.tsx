@@ -15,10 +15,34 @@ function Content() {
             <ComponentWithSwipe ratioWhenSideOpen={0.5} sideWidth={asideWidth}>
                 <aside
                     ref={asideRef}
-                    style={{ background: "var(--brightCyan)" }}
+                    style={{
+                        background: "var(--brightCyan)",
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr 1fr",
+                    }}
                     className='app__menu'
                 >
-                    asideasideasideaside
+                    <span
+                        style={{
+                            background: "red",
+                        }}
+                    >
+                        test
+                    </span>
+                    <span
+                        style={{
+                            background: "blue",
+                        }}
+                    >
+                        test
+                    </span>
+                    <span
+                        style={{
+                            background: "green",
+                        }}
+                    >
+                        test
+                    </span>
                 </aside>
                 <div
                     style={{

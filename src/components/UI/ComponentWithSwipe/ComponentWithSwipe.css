@@ -3,9 +3,9 @@
     height: 100%;
 }
 .container-with-swipe__body {
-    transition: 0.1s;
+    /* float: right; */
     display: grid;
     height: 100%;
     grid-template-columns: auto 1fr;
-    outline: 3px solid var(--brightPurple);
+    transition: transform 0.1s;
 }

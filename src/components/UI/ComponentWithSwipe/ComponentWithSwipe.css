@@ -1,0 +1,11 @@
+.container-with-swipe {
+    overflow: hidden;
+    height: 100%;
+}
+.container-with-swipe__body {
+    transition: 0.1s;
+    display: grid;
+    height: 100%;
+    grid-template-columns: auto 1fr;
+    outline: 3px solid var(--brightPurple);
+}

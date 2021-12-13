@@ -1,8 +1,9 @@
+import "./App.css"
+import { Content } from "../Content/Content"
 function App() {
     return (
         <main className='app'>
-            <div className='app__content'></div>
-            <aside className='app__menu'></aside>
+            <Content />
         </main>
     )
 }

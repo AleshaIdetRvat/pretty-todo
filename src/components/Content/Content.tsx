@@ -43,12 +43,12 @@ function Content() {
     return (
         <div className='app__content'>
             <ComponentWithSwipe
-                side='left'
-                ratioWhenSideOpen={0.3}
+                side='right'
                 sideWidth={asideWidth}
+                // ratioWhenSideOpen={0.5}
             >
                 <aside
-                    ref={asideRef}
+                    // ref={asideRef}
                     style={{
                         background: "var(--brightCyan)",
                         display: "grid",
@@ -59,7 +59,7 @@ function Content() {
                     <TestChild />
                 </aside>
                 <div
-                    // ref={asideRef}
+                    ref={asideRef}
                     style={{
                         background: "var(--brightBlack)",
                         flex: "1 0 100%",

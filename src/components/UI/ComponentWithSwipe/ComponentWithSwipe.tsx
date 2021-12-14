@@ -1,3 +1,4 @@
+import { setPriority } from "os"
 import { FC, useCallback, useEffect, useRef } from "react"
 // import { usePrevious } from "../../../hooks/usePrevious"
 // import { useThrottle } from "../../../hooks/useThrottle"
@@ -5,7 +6,7 @@ import "./ComponentWithSwipe.css"
 
 type Side = "left" | "right"
 interface Props {
-    ratioWhenSideOpen: number
+    ratioWhenSideOpen?: number
     sideWidth: number
     children: React.ReactNode
     side: Side
@@ -19,7 +20,7 @@ function getMultiplier(side: Side): number {
 const ComponentWithSwipe: FC<Props> = (props) => {
     console.log("ComponentWithSwipe render")
 
-    const { ratioWhenSideOpen, sideWidth, children, side } = props
+    const { ratioWhenSideOpen = 0.5, sideWidth, children, side } = props
 
     const bodyRef = useRef<HTMLDivElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
@@ -30,7 +31,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
     // (+) авто доводка
     // (+) функционал работы с разными сторонами
     // (?) ratioWhenSideOpen
-    // (-) добавить параметры
+    // (-) кастомная анимация
 
     useEffect(() => {
         if (bodyRef.current && containerRef.current) {
@@ -74,8 +75,6 @@ const ComponentWithSwipe: FC<Props> = (props) => {
 
                     if (hasIgnoreMove) return
 
-                    console.log("different", different)
-
                     translateXRef.current +=
                         getMultiplier(side) * -1 * different
 
@@ -87,14 +86,11 @@ const ComponentWithSwipe: FC<Props> = (props) => {
                 }
             } else {
                 const different = prevClientXRef.current - clientX
-                console.log("different :>> ", different)
 
                 if (translateXRef.current !== undefined && bodyRef.current) {
                     let hasIgnoreMove: boolean =
                         translateXRef.current + different >= sideWidth ||
                         translateXRef.current + different <= 0
-                    console.log("translateXRef.current", translateXRef.current)
-                    console.log("sideWidth:>> ", sideWidth)
 
                     if (hasIgnoreMove) return
 
@@ -110,33 +106,18 @@ const ComponentWithSwipe: FC<Props> = (props) => {
     )
 
     const automaticCloser = useCallback(() => {
-        if (!bodyRef.current) return
-        // if (side === "left") {
-        if (
-            translateXRef.current !== undefined &&
-            translateXRef.current < sideWidth * ratioWhenSideOpen
-        ) {
+        if (!bodyRef.current || !(translateXRef.current !== undefined)) return
+
+        const isSideOpened =
+            translateXRef.current < sideWidth - sideWidth * ratioWhenSideOpen
+
+        if (isSideOpened) {
             bodyRef.current.style.transform = "translateX(0px)"
             translateXRef.current = 0
         } else {
-            bodyRef.current.style.transform = `translateX(${
-                -sideWidth
-                // getMultiplier(side) * sideWidth
-            }px)`
+            bodyRef.current.style.transform = `translateX(${-sideWidth}px)`
             translateXRef.current = sideWidth
         }
-        // } else {
-        //     if (
-        //         translateXRef.current !== undefined &&
-        //         translateXRef.current < sideWidth * ratioWhenSideOpen
-        //     ) {
-        //         bodyRef.current.style.transform = "translateX(0px)"
-        //         translateXRef.current = 0
-        //     } else {
-        //         bodyRef.current.style.transform = `translateX(${-sideWidth}px)`
-        //         translateXRef.current = sideWidth
-        //     }
-        // }
     }, [sideWidth, side, ratioWhenSideOpen])
 
     const touchEndHandler: React.TouchEventHandler<HTMLElement> =

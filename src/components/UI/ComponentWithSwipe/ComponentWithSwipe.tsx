@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useRef } from "react"
-import { usePrevious } from "../../../hooks/usePrevious"
-import { useThrottle } from "../../../hooks/useThrottle"
+// import { usePrevious } from "../../../hooks/usePrevious"
+// import { useThrottle } from "../../../hooks/useThrottle"
 import "./ComponentWithSwipe.css"
 
 type Side = "left" | "right"
@@ -26,8 +26,9 @@ const ComponentWithSwipe: FC<Props> = (props) => {
     const prevClientXRef = useRef<number>()
     const translateXRef = useRef<number>()
 
-    // (-) функционал работы с разными сторонами
+    // (?) авто доводка
     // (-) ratioWhenSideOpen
+    // (-) функционал работы с разными сторонами
     // (-) добавить параметры
 
     useEffect(() => {
@@ -51,22 +52,27 @@ const ComponentWithSwipe: FC<Props> = (props) => {
 
     const touchStartHandler: React.TouchEventHandler<HTMLElement> = (e) => {
         prevClientXRef.current = e.targetTouches[0].clientX
+
+        // translateXRef.current = 0
+        // automaticCloser()
+        // console.log("translateXRef.current", translateXRef.current)
+        // console.log(
+        // "sideWidth * ratioWhenSideOpen",
+        // sideWidth * ratioWhenSideOpen
+        // )
     }
 
     const touchMoveHandler: React.TouchEventHandler<HTMLElement> = useCallback(
         (e) => {
             // console.log(e.targetTouches[0])
             const { clientX } = e.targetTouches[0]
+            console.log("prevClientXRef.current", prevClientXRef.current)
 
-            if (prevClientXRef.current === undefined) {
-                prevClientXRef.current = clientX
-                return
-            }
+            const different = prevClientXRef.current
+                ? prevClientXRef.current + getMultiplier(side) * clientX
+                : 0
 
-            const different =
-                prevClientXRef.current + getMultiplier(side) * clientX
-
-            if (translateXRef.current && bodyRef.current) {
+            if (translateXRef.current !== undefined && bodyRef.current) {
                 if (
                     translateXRef.current + different > sideWidth ||
                     translateXRef.current + different <= 0
@@ -82,21 +88,29 @@ const ComponentWithSwipe: FC<Props> = (props) => {
                 prevClientXRef.current = clientX
             }
         },
-        [sideWidth]
+        [sideWidth, side]
     )
 
-    const touchEndHandler: React.TouchEventHandler<HTMLElement> = () => {
+    const automaticCloser = useCallback(() => {
         if (bodyRef.current) {
             if (
-                translateXRef.current &&
+                translateXRef.current !== undefined &&
                 translateXRef.current < sideWidth * ratioWhenSideOpen
             ) {
                 bodyRef.current.style.transform = "translateX(0px)"
+                translateXRef.current = 0
+                console.log(translateXRef.current)
             } else {
-                bodyRef.current.style.transform = `translateX(${-sideWidth}px)`
+                bodyRef.current.style.transform = `translateX(${
+                    getMultiplier(side) * sideWidth
+                }px)`
+                translateXRef.current = sideWidth
             }
         }
-    }
+    }, [sideWidth, side, ratioWhenSideOpen])
+
+    const touchEndHandler: React.TouchEventHandler<HTMLElement> =
+        automaticCloser
 
     return (
         <div ref={containerRef} className='container-with-swipe'>

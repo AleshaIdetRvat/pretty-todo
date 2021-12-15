@@ -1,15 +1,15 @@
-import { setPriority } from "os"
-import { FC, useCallback, useEffect, useRef } from "react"
-// import { usePrevious } from "../../../hooks/usePrevious"
-// import { useThrottle } from "../../../hooks/useThrottle"
+import { FC, useCallback, useEffect, useRef, useState } from "react"
 import "./ComponentWithSwipe.css"
 
 type Side = "left" | "right"
+
 interface Props {
     ratioWhenSideOpen?: number
     sideWidth: number
     children: React.ReactNode
     side: Side
+    setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>
+    isSideOpen: boolean
 }
 
 function getMultiplier(side: Side): number {
@@ -19,19 +19,13 @@ function getMultiplier(side: Side): number {
 
 const ComponentWithSwipe: FC<Props> = (props) => {
     console.log("ComponentWithSwipe render")
-
+    const [state, setState] = useState<boolean>(false)
     const { ratioWhenSideOpen = 0.5, sideWidth, children, side } = props
 
     const bodyRef = useRef<HTMLDivElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
     const prevClientXRef = useRef<number>()
     const translateXRef = useRef<number>()
-
-    // todo:
-    // (+) авто доводка
-    // (+) функционал работы с разными сторонами
-    // (?) ratioWhenSideOpen
-    // (-) кастомная анимация
 
     useEffect(() => {
         if (bodyRef.current && containerRef.current) {
@@ -118,19 +112,19 @@ const ComponentWithSwipe: FC<Props> = (props) => {
             bodyRef.current.style.transform = `translateX(${-sideWidth}px)`
             translateXRef.current = sideWidth
         }
-    }, [sideWidth, side, ratioWhenSideOpen])
+    }, [sideWidth, ratioWhenSideOpen])
 
     const touchEndHandler: React.TouchEventHandler<HTMLElement> =
         automaticCloser
 
     return (
-        <div ref={containerRef} className='container-with-swipe'>
+        <div className='container-with-swipe' ref={containerRef}>
             <div
+                className='container-with-swipe__body'
+                ref={bodyRef}
                 onTouchStart={touchStartHandler}
                 onTouchMove={touchMoveHandler}
                 onTouchEnd={touchEndHandler}
-                ref={bodyRef}
-                className='container-with-swipe__body'
             >
                 {children}
             </div>

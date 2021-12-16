@@ -1,0 +1,12 @@
+@keyframes swipe-arrow {
+    0% {
+        transform: translateX(10%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.swipe-icon {
+    animation: swipe-arrow 1s ease-in-out infinite alternate;
+}

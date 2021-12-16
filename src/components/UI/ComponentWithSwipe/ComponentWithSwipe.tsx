@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useRef, useState } from "react"
+import { FC, useCallback, useEffect, useRef } from "react"
 import "./ComponentWithSwipe.css"
 
 type Side = "left" | "right"
@@ -8,8 +8,8 @@ interface Props {
     sideWidth: number
     children: React.ReactNode
     side: Side
-    setIsSideOpen: React.Dispatch<React.SetStateAction<boolean>>
-    isSideOpen: boolean
+    onOpen?: Function
+    onClose?: Function
 }
 
 function getMultiplier(side: Side): number {
@@ -19,8 +19,14 @@ function getMultiplier(side: Side): number {
 
 const ComponentWithSwipe: FC<Props> = (props) => {
     console.log("ComponentWithSwipe render")
-    const [state, setState] = useState<boolean>(false)
-    const { ratioWhenSideOpen = 0.5, sideWidth, children, side } = props
+    const {
+        ratioWhenSideOpen = 0.5,
+        sideWidth,
+        children,
+        side,
+        onClose,
+        onOpen,
+    } = props
 
     const bodyRef = useRef<HTMLDivElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
@@ -102,14 +108,29 @@ const ComponentWithSwipe: FC<Props> = (props) => {
     const automaticCloser = useCallback(() => {
         if (!bodyRef.current || !(translateXRef.current !== undefined)) return
 
-        const isSideOpened =
-            translateXRef.current < sideWidth - sideWidth * ratioWhenSideOpen
-
-        if (isSideOpened) {
+        if (translateXRef.current < sideWidth - sideWidth * ratioWhenSideOpen) {
             bodyRef.current.style.transform = "translateX(0px)"
+
+            if (Math.abs(translateXRef.current) > 5) {
+                if (side === "left") {
+                    onOpen()
+                } else {
+                    onClose()
+                }
+            }
+
             translateXRef.current = 0
         } else {
             bodyRef.current.style.transform = `translateX(${-sideWidth}px)`
+
+            if (Math.abs(translateXRef.current - sideWidth) > 5) {
+                if (side === "left") {
+                    onClose()
+                } else {
+                    onOpen()
+                }
+            }
+
             translateXRef.current = sideWidth
         }
     }, [sideWidth, ratioWhenSideOpen])

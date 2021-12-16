@@ -5,6 +5,18 @@
 .app__menu {
     width: 250px;
 }
-.app__content {
+.app__body {
+    /* display: flex; */
+    flex-direction: column;
+    /* position: relative; */
+    /* right: 0; */
     height: 100%;
+    width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
+}
+.app__content {
+    flex: 1 1 auto;
+    height: 100%;
+    overflow: auto;
 }

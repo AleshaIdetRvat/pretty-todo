@@ -1,5 +1,6 @@
+import { AppRoutes } from "../AppRoutes"
+import { Menu } from "../Menu/Menu"
 import { ComponentWithSwipe } from "../UI/ComponentWithSwipe/ComponentWithSwipe"
-import { SwipeIcon } from "../UI/Icons/SwipeIcon/SwipeIcon"
 import "./App.css"
 
 function App() {
@@ -10,12 +11,11 @@ function App() {
                 onClose={() => console.log("close")}
                 side='left'
                 sideWidth={250}
+                withDelay={true}
             >
-                <aside className='app__menu'>app menu</aside>
-
-                <div className='app__content'>
-                    <SwipeIcon />
-                    App content
+                <Menu />
+                <div className='app__body'>
+                    <AppRoutes />
                 </div>
             </ComponentWithSwipe>
         </main>

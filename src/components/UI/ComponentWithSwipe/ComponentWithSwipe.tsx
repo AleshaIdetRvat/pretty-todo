@@ -8,6 +8,7 @@ interface Props {
     sideWidth: number
     children: React.ReactNode
     side: Side
+    withDelay?: boolean
     onOpen?: Function
     onClose?: Function
 }
@@ -24,6 +25,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
         sideWidth,
         children,
         side,
+        withDelay = false,
         onClose,
         onOpen,
     } = props
@@ -49,7 +51,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
             containerRef.current.style.width = `${bodyRef.current.offsetWidth}px`
 
             bodyRef.current.style.width = `${
-                bodyRef.current.offsetWidth + sideWidth
+                bodyRef.current.offsetWidth + sideWidth + 10
             }px`
         }
     }, [sideWidth, side])
@@ -78,9 +80,11 @@ const ComponentWithSwipe: FC<Props> = (props) => {
                     translateXRef.current +=
                         getMultiplier(side) * -1 * different
 
-                    bodyRef.current.style.transform = `translateX(${
-                        getMultiplier(side) * translateXRef.current
-                    }px)`
+                    if (!withDelay || sideWidth - translateXRef.current > 40) {
+                        bodyRef.current.style.transform = `translateX(${
+                            getMultiplier(side) * translateXRef.current
+                        }px)`
+                    }
 
                     prevClientXRef.current = clientX
                 }
@@ -96,7 +100,9 @@ const ComponentWithSwipe: FC<Props> = (props) => {
 
                     translateXRef.current += different
 
-                    bodyRef.current.style.transform = `translateX(${-translateXRef.current}px)`
+                    if (!withDelay || sideWidth - translateXRef.current > 40) {
+                        bodyRef.current.style.transform = `translateX(${-translateXRef.current}px)`
+                    }
 
                     prevClientXRef.current = clientX
                 }

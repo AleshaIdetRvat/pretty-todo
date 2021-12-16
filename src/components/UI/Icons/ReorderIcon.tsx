@@ -4,7 +4,7 @@ interface Props {
     dragControls: DragControls
 }
 
-export function ReorderIcon({ dragControls }: Props) {
+function ReorderIcon({ dragControls }: Props) {
     return (
         <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -52,3 +52,4 @@ export function ReorderIcon({ dragControls }: Props) {
         </svg>
     )
 }
+export { ReorderIcon }

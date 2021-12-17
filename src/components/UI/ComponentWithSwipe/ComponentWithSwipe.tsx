@@ -2,7 +2,9 @@ import { FC, useCallback, useEffect, useRef } from "react"
 import "./ComponentWithSwipe.css"
 
 type Side = "left" | "right"
-
+interface Style {
+    [key: string]: number | string
+}
 interface Props {
     children: React.ReactNode
     ratioWhenSideOpen?: number
@@ -12,6 +14,7 @@ interface Props {
     transition?: number
     onOpen?: Function
     onClose?: Function
+    style?: Style
 }
 
 function getMultiplier(side: Side): number {
@@ -27,9 +30,10 @@ const ComponentWithSwipe: FC<Props> = (props) => {
         children,
         side,
         withDelay = false,
-        transition = 0.15,
+        transition = 0.5,
         onClose,
         onOpen,
+        style = {},
     } = props
 
     const bodyRef = useRef<HTMLDivElement>(null)
@@ -46,20 +50,18 @@ const ComponentWithSwipe: FC<Props> = (props) => {
             } else {
                 translateXRef.current = 0
             }
-
             bodyRef.current.style.transition = `${transition}s`
-            bodyRef.current.style.gridTemplateColumns =
-                side === "left" ? "auto 1fr" : "1fr auto"
 
             containerRef.current.style.width = `${bodyRef.current.offsetWidth}px`
 
             bodyRef.current.style.width = `${
-                bodyRef.current.offsetWidth + sideWidth + 10
+                bodyRef.current.offsetWidth + sideWidth
             }px`
         }
-    }, [sideWidth, side])
+    }, [sideWidth, transition, side])
 
     const touchStartHandler: React.TouchEventHandler<HTMLElement> = (e) => {
+        bodyRef.current.style.transition = "0.12s"
         prevClientXRef.current = e.targetTouches[0].clientX
     }
 
@@ -111,11 +113,12 @@ const ComponentWithSwipe: FC<Props> = (props) => {
                 }
             }
         },
-        [sideWidth, side]
+        [sideWidth, side, withDelay]
     )
 
     const automaticCloser = useCallback(() => {
         if (!bodyRef.current || !(translateXRef.current !== undefined)) return
+        bodyRef.current.style.transition = `${transition}s`
 
         if (translateXRef.current < sideWidth - sideWidth * ratioWhenSideOpen) {
             bodyRef.current.style.transform = "translateX(0px)"
@@ -142,13 +145,13 @@ const ComponentWithSwipe: FC<Props> = (props) => {
 
             translateXRef.current = sideWidth
         }
-    }, [sideWidth, ratioWhenSideOpen])
+    }, [sideWidth, ratioWhenSideOpen, onClose, onOpen, side, transition])
 
     const touchEndHandler: React.TouchEventHandler<HTMLElement> =
         automaticCloser
 
     return (
-        <div className='container-with-swipe' ref={containerRef}>
+        <div className='container-with-swipe' style={style} ref={containerRef}>
             <div
                 className='container-with-swipe__body'
                 ref={bodyRef}

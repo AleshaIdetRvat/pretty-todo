@@ -3,8 +3,9 @@
     height: 100%;
 }
 .container-with-swipe__body {
-    /* float: right; */
     display: grid;
+    /* display: flex; */
     height: 100%;
-    grid-template-columns: auto 1fr;
+    grid-auto-flow: column;
+    /* grid-template-columns: auto 1fr; */
 }

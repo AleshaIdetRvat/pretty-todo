@@ -3,6 +3,8 @@ import { HeaderContainer } from "./Header/HeaderContainer"
 import { TodoPage } from "./TodoPage/TodoPage"
 
 const AppRoutes = () => {
+    console.log("App routes render")
+
     return (
         <BrowserRouter>
             <HeaderContainer />

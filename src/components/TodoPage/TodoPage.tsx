@@ -2,8 +2,9 @@ import { FC, useState } from "react"
 import { AnimatePresence, Reorder } from "framer-motion"
 import { TodoItem } from "../TodoItem/TodoItem"
 import "./TodoPage.css"
+import React from "react"
 
-const TodoPage: FC = (props) => {
+const TodoPage: FC = React.memo((props) => {
     const initialItems = ["🍅 Tomato", "🥒 Cucumber", "🧀 Cheese", "🥬 Lettuce"]
 
     const [items, setItems] = useState<string[]>(initialItems)
@@ -35,6 +36,6 @@ const TodoPage: FC = (props) => {
             <button onClick={handleAdd}>add item</button>
         </>
     )
-}
+})
 
 export { TodoPage }

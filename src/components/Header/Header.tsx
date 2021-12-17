@@ -1,5 +1,4 @@
 import { FC } from "react"
-import TodoHeaderImage from "../../assets/images/TodoPageWall.png"
 import { SwipeIcon } from "../UI/Icons/SwipeIcon/SwipeIcon"
 import "./Header.css"
 
@@ -19,7 +18,7 @@ const Header: FC<Props> = (props) => {
                     <SwipeIcon />
                 </div>
                 <div className='header__image-container'>
-                    <img className='header__image' src={imgSrc} />
+                    <img className='header__image' src={imgSrc} alt='header' />
                 </div>
 
                 <h1 className='header__title'>{title}</h1>

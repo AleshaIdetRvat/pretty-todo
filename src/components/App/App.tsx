@@ -3,9 +3,9 @@ import { Menu } from "../Menu/Menu"
 import { ComponentWithSwipe } from "../UI/ComponentWithSwipe/ComponentWithSwipe"
 import "./App.css"
 
-const swipaebleComponentProps = {}
-
 function App() {
+    console.log("App component render")
+
     return (
         <main className='app'>
             <ComponentWithSwipe

@@ -4,11 +4,12 @@ import "./ComponentWithSwipe.css"
 type Side = "left" | "right"
 
 interface Props {
+    children: React.ReactNode
     ratioWhenSideOpen?: number
     sideWidth: number
-    children: React.ReactNode
     side: Side
     withDelay?: boolean
+    transition?: number
     onOpen?: Function
     onClose?: Function
 }
@@ -26,6 +27,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
         children,
         side,
         withDelay = false,
+        transition = 0.15,
         onClose,
         onOpen,
     } = props
@@ -45,6 +47,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
                 translateXRef.current = 0
             }
 
+            bodyRef.current.style.transition = `${transition}s`
             bodyRef.current.style.gridTemplateColumns =
                 side === "left" ? "auto 1fr" : "1fr auto"
 

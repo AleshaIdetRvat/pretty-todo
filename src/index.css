@@ -28,6 +28,8 @@
     --brightRed: #cc241d;
     --brightWhite: #7c6f64;
     --brightYellow: #d79921;
+
+    --main-shadow: rgba(163, 163, 163, 0.3) 0px 2px 16px;
 }
 
 html,

@@ -1,10 +1,7 @@
 import { FC, useState } from "react"
 import { AnimatePresence, Reorder } from "framer-motion"
 import { TodoItem } from "../TodoItem/TodoItem"
-
-interface ItemProps {
-    children: string
-}
+import "./TodoPage.css"
 
 const TodoPage: FC = (props) => {
     const initialItems = ["🍅 Tomato", "🥒 Cucumber", "🧀 Cheese", "🥬 Lettuce"]
@@ -12,7 +9,6 @@ const TodoPage: FC = (props) => {
     const [items, setItems] = useState<string[]>(initialItems)
     const handleDelete = () => {
         const itemsClone = [...items]
-        itemsClone.pop()
         setItems(itemsClone)
     }
     const handleAdd = () => {
@@ -22,7 +18,6 @@ const TodoPage: FC = (props) => {
     }
     return (
         <>
-            {" "}
             <Reorder.Group
                 className='todo-list'
                 axis='y'

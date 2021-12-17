@@ -1,0 +1,7 @@
+.todo-item {
+    background-color: var(--background);
+    padding: 5px;
+    border-radius: 8px;
+}
+.todo-item__body {
+}

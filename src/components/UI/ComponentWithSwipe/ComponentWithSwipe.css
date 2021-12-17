@@ -7,5 +7,4 @@
     display: grid;
     height: 100%;
     grid-template-columns: auto 1fr;
-    transition: transform 0.15s;
 }

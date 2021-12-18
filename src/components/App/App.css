@@ -17,7 +17,8 @@
 }
 .app__content {
     border-radius: 18px 18px 0 0;
-    padding: 16px 12px;
+
+    /* padding: 16px 12px; */
     flex: 1 1 auto;
     height: 100%;
     overflow: auto;

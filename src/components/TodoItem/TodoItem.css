@@ -1,24 +1,38 @@
 .todo-item {
     background-color: var(--background);
     box-shadow: var(--main-shadow) -15px;
-    padding: 0 5px;
     border-radius: 8px;
     display: flex;
     align-items: center;
+    font-size: 5.5vw;
+    position: relative;
 }
+
 .todo-item__body {
     padding: 5px 0;
+    padding-left: 18px;
     display: flex;
     justify-content: space-between;
     transition: 0.2s;
-    width: calc(100vw - 24px - 10px - 39px);
+    width: calc(100vw);
+    /* width: calc(100vw - 24px - 10px); */
+    /* width: calc(100vw - 24px - 10px - 10vw - 22px); */
+    /* width: calc(100vw - 24px - 10px - 10vw); */
 }
 .todo-item__delete-back {
     opacity: 0.9;
     display: flex;
     align-items: center;
-    color: var(--black);
+    color: var(--white);
     background-color: var(--brightRed);
-    border-radius: 6px;
+    /* border-radius: 6px; */
     padding-left: 10px;
+    position: relative;
+    z-index: 4 !important;
+}
+.todo-item__reorder-btn {
+    position: absolute;
+    transition: 0.3s;
+    right: 20px;
+    top: 0px;
 }

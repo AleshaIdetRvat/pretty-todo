@@ -14,6 +14,8 @@ interface Props {
     transition?: number
     onOpen?: Function
     onClose?: Function
+    onTouchStart?: Function
+    onTouchEnd?: Function
     style?: Style
 }
 
@@ -32,6 +34,8 @@ const ComponentWithSwipe: FC<Props> = (props) => {
         transition = 0.5,
         onClose,
         onOpen,
+        onTouchStart,
+        onTouchEnd,
         style = {},
     } = props
 
@@ -62,6 +66,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
     const touchStartHandler: React.TouchEventHandler<HTMLElement> = (e) => {
         bodyRef.current.style.transition = "0.12s"
         prevClientXRef.current = e.targetTouches[0].clientX
+        onTouchStart && onTouchStart()
     }
 
     const touchMoveHandler: React.TouchEventHandler<HTMLElement> = useCallback(
@@ -116,6 +121,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
     )
 
     const automaticCloser = useCallback(() => {
+        onTouchEnd && onTouchEnd()
         if (!bodyRef.current || !(translateXRef.current !== undefined)) return
         bodyRef.current.style.transition = `${transition}s`
 

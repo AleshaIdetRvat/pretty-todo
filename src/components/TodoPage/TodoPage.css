@@ -1,5 +1,6 @@
 .todo-list {
     list-style: none;
+    padding: 20px 0;
 }
 .todo-list__add-btn {
     position: absolute;
@@ -9,11 +10,14 @@
     height: 18vw;
     border-radius: 50%;
     box-shadow: var(--main-shadow);
-    background-color: var(--green);
+    background-color: var(--brightCyan);
     border: none;
     font-size: 12vw;
     display: flex;
     align-items: center;
-    color: var(--black);
+    color: var(--white);
     justify-content: center;
+    max-width: 90px;
+    max-height: 90px;
+    overflow: hidden;
 }

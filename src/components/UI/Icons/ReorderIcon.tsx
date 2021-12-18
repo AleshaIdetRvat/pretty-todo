@@ -11,11 +11,11 @@ function ReorderIcon({ dragControls, style }: Props) {
     const fillColor = "var(--purple)"
     return (
         <svg
-            style={{ opacity: 0.2, padding: "7px", ...style }}
+            style={{ opacity: 0.2, ...style }}
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 39 39'
-            width='39'
-            height='39'
+            width='10vw'
+            height='10vw'
             onPointerDown={(event) => dragControls.start(event)}
         >
             <path

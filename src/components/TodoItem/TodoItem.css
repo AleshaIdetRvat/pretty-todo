@@ -15,9 +15,6 @@
     justify-content: space-between;
     transition: 0.2s;
     width: calc(100vw);
-    /* width: calc(100vw - 24px - 10px); */
-    /* width: calc(100vw - 24px - 10px - 10vw - 22px); */
-    /* width: calc(100vw - 24px - 10px - 10vw); */
 }
 .todo-item__delete-back {
     opacity: 0.9;
@@ -25,7 +22,6 @@
     align-items: center;
     color: var(--white);
     background-color: var(--brightRed);
-    /* border-radius: 6px; */
     padding-left: 10px;
     position: relative;
     z-index: 4 !important;

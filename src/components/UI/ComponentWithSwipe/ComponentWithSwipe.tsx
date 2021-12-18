@@ -12,6 +12,8 @@ interface Props {
     side: Side
     withDelay?: boolean
     transition?: number
+    autoTransition?: number
+
     onOpen?: Function
     onClose?: Function
     onTouchStart?: Function
@@ -31,7 +33,8 @@ const ComponentWithSwipe: FC<Props> = (props) => {
         children,
         side,
         withDelay = false,
-        transition = 0.5,
+        transition = 0.1,
+        autoTransition = 0.5,
         onClose,
         onOpen,
         onTouchStart,
@@ -53,7 +56,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
             } else {
                 translateXRef.current = 0
             }
-            bodyRef.current.style.transition = `${transition}s`
+            bodyRef.current.style.transition = `${autoTransition}s`
 
             containerRef.current.style.width = `${bodyRef.current.offsetWidth}px`
 
@@ -61,10 +64,10 @@ const ComponentWithSwipe: FC<Props> = (props) => {
                 bodyRef.current.offsetWidth + sideWidth
             }px`
         }
-    }, [sideWidth, transition, side])
+    }, [sideWidth, autoTransition, side])
 
     const touchStartHandler: React.TouchEventHandler<HTMLElement> = (e) => {
-        bodyRef.current.style.transition = "0.12s"
+        bodyRef.current.style.transition = `${transition}s`
         prevClientXRef.current = e.targetTouches[0].clientX
         onTouchStart && onTouchStart()
     }
@@ -123,7 +126,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
     const automaticCloser = useCallback(() => {
         onTouchEnd && onTouchEnd()
         if (!bodyRef.current || !(translateXRef.current !== undefined)) return
-        bodyRef.current.style.transition = `${transition}s`
+        bodyRef.current.style.transition = `${autoTransition}s`
 
         if (translateXRef.current < sideWidth - sideWidth * ratioWhenSideOpen) {
             bodyRef.current.style.transform = "translateX(0px)"
@@ -150,7 +153,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
 
             translateXRef.current = sideWidth
         }
-    }, [sideWidth, ratioWhenSideOpen, onClose, onOpen, side, transition])
+    }, [sideWidth, ratioWhenSideOpen, onClose, onOpen, side, autoTransition])
 
     const touchEndHandler: React.TouchEventHandler<HTMLElement> =
         automaticCloser

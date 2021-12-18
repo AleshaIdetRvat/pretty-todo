@@ -12,7 +12,8 @@ function App() {
                 side='left'
                 sideWidth={250}
                 withDelay={true}
-                transition={0.4}
+                transition={0.3}
+                autoTransition={0.3}
             >
                 <Menu />
                 <div className='app__body'>

@@ -36,7 +36,8 @@ const TodoItemInner: FC<TodoInnerProps> = (props) => {
                 }}
                 side='right'
                 sideWidth={itemWidth}
-                transition={0.5}
+                transition={0.1}
+                autoTransition={0.5}
             >
                 <div className='todo-item__body' ref={itemRef}>
                     {layout}

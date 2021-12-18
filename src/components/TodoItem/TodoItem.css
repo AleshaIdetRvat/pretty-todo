@@ -1,16 +1,22 @@
 .todo-item {
     background-color: var(--background);
     box-shadow: var(--main-shadow) -15px;
-    border-radius: 8px;
     display: flex;
     align-items: center;
     font-size: 5.5vw;
     position: relative;
 }
-
+.todo-item__input {
+    font-family: inherit;
+    font-size: 5.5vw;
+    padding: 5px 0 5px 18px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
 .todo-item__body {
-    padding: 5px 0;
-    padding-left: 18px;
+    padding: 5px 0 5px 18px;
+    padding-right: clamp(20px, calc(20px + 10vw), 60px);
     display: flex;
     justify-content: space-between;
     transition: 0.2s;

@@ -14,8 +14,6 @@ function ReorderIcon({ dragControls, style }: Props) {
             style={{ opacity: 0.2, ...style }}
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 39 39'
-            width='10vw'
-            height='10vw'
             onPointerDown={(event) => dragControls.start(event)}
         >
             <path

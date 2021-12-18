@@ -6,8 +6,14 @@ import { ITodoItem } from "../../types/Todo"
 import "./TodoPage.css"
 
 const TodoPage: FC = React.memo(() => {
+    console.log("Todo page render")
+
     const initialItems: ITodoItem[] = [
-        { completed: false, id: "1", text: "🍅 Tomato" },
+        {
+            completed: false,
+            id: "1",
+            text: "🍅 Tomato 🍅 Tomato🍅 Tom ato🍅 Tsos ddmato🍅 Toma to🍅 Tomato",
+        },
         { completed: false, id: "2", text: "🥒 Cucumber" },
         { completed: false, id: "3", text: "🧀 Cheese" },
         { completed: false, id: "4", text: "🥬 Lettuce" },
@@ -22,14 +28,19 @@ const TodoPage: FC = React.memo(() => {
         [items]
     )
 
-    const handleAdd = () => {
+    const addNewItem = () => {
         const itemsClone = [...items]
         itemsClone.unshift({
             completed: false,
-            id: "5",
-            text: "@ Something",
+            id: `${Date.now()}`,
+            text: "",
         })
         setItems(itemsClone)
+    }
+
+    const saveNewItem = (id: string, todoText: string) => {
+        items.find((item) => item.id === id).text = todoText
+        setItems([...items])
     }
 
     return (
@@ -43,6 +54,7 @@ const TodoPage: FC = React.memo(() => {
                 <AnimatePresence initial={false}>
                     {items.map((item) => (
                         <TodoItem
+                            onSave={saveNewItem}
                             onRemove={() => removeTodoItem(item.id)}
                             item={item}
                             key={item.id}
@@ -53,14 +65,13 @@ const TodoPage: FC = React.memo(() => {
                 </AnimatePresence>
             </Reorder.Group>
 
-            <button className='todo-list__add-btn' onClick={handleAdd}>
+            <button className='todo-list__add-btn' onClick={addNewItem}>
                 <svg
                     baseProfile='tiny'
                     height='12vw'
                     version='1.2'
                     viewBox='0 0 24 24'
                     width='12vw'
-                    xmlns='http://www.w3.org/2000/svg'
                 >
                     <path
                         fill='var(--white)'

@@ -58,11 +58,13 @@ const TodoItemInner: FC<TodoInnerProps> = (props) => {
 
             <div className='todo-item__reorder-btn' ref={reorderIconRef}>
                 <ReorderIcon
+                    dragControls={dragControls}
                     style={{
                         padding: "7px 0px 7px 7px",
                         alignSelf: "flex-start",
+                        width: "clamp(20px, 10vw, 60px)",
+                        height: "clamp(20px, 10vw, 60px)",
                     }}
-                    dragControls={dragControls}
                 />
             </div>
         </>
@@ -72,11 +74,23 @@ interface ItemProps {
     children: string
     item: ITodoItem
     onRemove: Function
+    onSave: (id: string, newText: string) => any
 }
 
 const TodoItem: FC<ItemProps> = React.memo((props) => {
-    const { children, item, onRemove } = props
+    const { children, item, onRemove, onSave } = props
     const dragControls = useDragControls()
+
+    const blurHandler: React.FocusEventHandler<HTMLTextAreaElement> = (e) => {
+        console.log("New text:", e.target.value)
+
+        const newText = e.target.value.trim()
+        if (newText !== "") {
+            onSave(item.id, newText)
+        } else {
+            onRemove()
+        }
+    }
 
     return (
         <Reorder.Item
@@ -95,25 +109,31 @@ const TodoItem: FC<ItemProps> = React.memo((props) => {
             exit={{
                 opacity: 0,
                 scaleY: 0.5,
-                // borderRadius: "10px",
-                // overflow: "hidden",
                 x: "-60%",
                 transition: { duration: 0.4, ease: "easeInOut" },
             }}
             dragListener={false}
             dragControls={dragControls}
             whileDrag={{
-                boxShadow: "var(--main-shadow)",
+                boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.1)",
                 opacity: 0.6,
             }}
             onTouchMove={(e) => e.stopPropagation()}
             onTouchStart={(e) => e.stopPropagation()}
         >
-            <TodoItemInner
-                dragControls={dragControls}
-                onRemove={onRemove}
-                layout={children}
-            />
+            {children !== "" ? (
+                <TodoItemInner
+                    dragControls={dragControls}
+                    onRemove={onRemove}
+                    layout={children}
+                />
+            ) : (
+                <textarea
+                    className='todo-item__input'
+                    autoFocus
+                    onBlur={blurHandler}
+                />
+            )}
         </Reorder.Item>
     )
 })

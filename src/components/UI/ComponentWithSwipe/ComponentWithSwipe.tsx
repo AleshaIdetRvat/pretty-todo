@@ -23,7 +23,6 @@ function getMultiplier(side: Side): number {
 }
 
 const ComponentWithSwipe: FC<Props> = (props) => {
-    console.log("ComponentWithSwipe render")
     const {
         ratioWhenSideOpen = 0.5,
         sideWidth,
@@ -125,9 +124,9 @@ const ComponentWithSwipe: FC<Props> = (props) => {
 
             if (Math.abs(translateXRef.current) > 5) {
                 if (side === "left") {
-                    onOpen()
+                    onOpen && onOpen()
                 } else {
-                    onClose()
+                    onClose && onClose()
                 }
             }
 
@@ -137,9 +136,9 @@ const ComponentWithSwipe: FC<Props> = (props) => {
 
             if (Math.abs(translateXRef.current - sideWidth) > 5) {
                 if (side === "left") {
-                    onClose()
+                    onClose && onClose()
                 } else {
-                    onOpen()
+                    onOpen && onOpen()
                 }
             }
 

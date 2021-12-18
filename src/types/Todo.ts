@@ -1,7 +1,7 @@
 interface ITodoItem {
     completed: boolean
     text: string
-    id: number | string
+    id: string
 }
 
 export type { ITodoItem }

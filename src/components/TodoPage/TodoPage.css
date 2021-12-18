@@ -1,3 +1,19 @@
 .todo-list {
     list-style: none;
 }
+.todo-list__add-btn {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    width: 18vw;
+    height: 18vw;
+    border-radius: 50%;
+    box-shadow: var(--main-shadow);
+    background-color: var(--green);
+    border: none;
+    font-size: 12vw;
+    display: flex;
+    align-items: center;
+    color: var(--black);
+    justify-content: center;
+}

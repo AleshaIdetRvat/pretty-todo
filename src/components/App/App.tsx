@@ -9,8 +9,6 @@ function App() {
     return (
         <main className='app'>
             <ComponentWithSwipe
-                onOpen={() => console.log("open")}
-                onClose={() => console.log("close")}
                 side='left'
                 sideWidth={250}
                 withDelay={true}

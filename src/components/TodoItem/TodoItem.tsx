@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from "react"
-import { DragControls, motion, Reorder, useDragControls } from "framer-motion"
+import { DragControls, Reorder, useDragControls } from "framer-motion"
 import { ComponentWithSwipe } from "../UI/ComponentWithSwipe/ComponentWithSwipe"
 import { ReorderIcon } from "../UI/Icons/ReorderIcon/ReorderIcon"
 import { ITodoItem } from "../../types/Todo"
@@ -19,6 +19,7 @@ const TodoItemInner: FC<TodoInnerProps> = React.memo((props) => {
     const reorderIconRef: React.Ref<HTMLDivElement> = useRef(null)
     const deleteBackRef: React.Ref<HTMLDivElement> = useRef(null)
     const [itemWidth, setItemWidth] = useState(0)
+    const [isChecked, setIsChecked] = useState(false)
 
     useEffect(() => {
         setItemWidth(itemRef.current.offsetWidth)
@@ -41,7 +42,14 @@ const TodoItemInner: FC<TodoInnerProps> = React.memo((props) => {
                 autoTransition={0.5}
             >
                 <div className='todo-item__body' ref={itemRef}>
-                    {layout}
+                    <div className='todo-item__checkbox'>
+                        <Checkbox
+                            className='todo-item__checkbox-inner'
+                            checked={isChecked}
+                            onChange={() => setIsChecked(!isChecked)}
+                        />
+                    </div>
+                    <p className='todo-item__text'>{layout}</p>
                 </div>
 
                 <div className='todo-item__delete-back' ref={deleteBackRef}>
@@ -90,12 +98,27 @@ const NewTodoMessage: FC<NewTodoMessageProps> = (props) => {
     }
 
     return (
-        <input
-            className='todo-item__input'
-            autoFocus
-            onBlur={handleBlur}
-            onKeyDown={onKeyDown}
-        />
+        <div className='todo-item__new-message'>
+            <svg
+                width='60'
+                height='30'
+                viewBox='0 0 100 40'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+                className='todo-item__input-arrow'
+            >
+                <path
+                    d='M16 17C14.8954 17 14 17.8954 14 19C14 20.1046 14.8954 21 16 21V17ZM70.4142 20.4142C71.1953 19.6332 71.1953 18.3668 70.4142 17.5858L57.6863 4.85786C56.9052 4.07682 55.6389 4.07682 54.8579 4.85786C54.0768 5.63891 54.0768 6.90524 54.8579 7.68629L66.1716 19L54.8579 30.3137C54.0768 31.0948 54.0768 32.3611 54.8579 33.1421C55.6389 33.9232 56.9052 33.9232 57.6863 33.1421L70.4142 20.4142ZM16 21H69V17H16V21Z'
+                    fill='var(--black)'
+                />
+            </svg>
+            <input
+                className='todo-item__input'
+                autoFocus
+                onBlur={handleBlur}
+                onKeyDown={onKeyDown}
+            />
+        </div>
     )
 }
 
@@ -108,8 +131,6 @@ interface ItemProps {
 
 const TodoItem: FC<ItemProps> = React.memo((props) => {
     const { children, item, onRemove, onSave } = props
-
-    const [isChecked, setIsChecked] = useState(false)
 
     const checkboxRef: React.Ref<HTMLDivElement> = useRef(null)
 
@@ -153,13 +174,6 @@ const TodoItem: FC<ItemProps> = React.memo((props) => {
             onTouchMove={(e) => e.stopPropagation()}
             onTouchStart={(e) => e.stopPropagation()}
         >
-            <div className='todo-item__checkbox' ref={checkboxRef}>
-                <Checkbox
-                    className='todo-item__checkbox-inner'
-                    checked={isChecked}
-                    onChange={() => setIsChecked(!isChecked)}
-                />
-            </div>
             {children !== "" ? (
                 <TodoItemInner
                     dragControls={dragControls}

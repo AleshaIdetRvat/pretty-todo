@@ -1,7 +1,6 @@
 .todo-list {
     list-style: none;
-    padding: 20px 0 calc(18vw + 28px) 0;
-    padding: 20px 0 20px 0;
+    padding: 18px 0 calc(18vw + 28px) 0;
 }
 .todo-list__add-btn {
     position: absolute;

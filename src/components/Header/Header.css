@@ -1,7 +1,6 @@
 .header {
     color: var(--white);
     flex: 1 0 28%;
-    /* height: 33vh; */
 }
 
 .header__body {

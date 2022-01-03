@@ -1,6 +1,6 @@
 .custom-checkbox {
-    width: 5vh;
-    height: 5vh;
+    width: calc(var(--vh, 1vh) * 5);
+    height: calc(var(--vh, 1vh) * 5);
     display: flex;
     align-items: center;
     justify-content: center;

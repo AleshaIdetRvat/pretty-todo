@@ -23,6 +23,10 @@
     outline: none;
     background-color: transparent;
 }
+.todo-item__input::placeholder {
+    opacity: 0.5;
+    color: var(--black);
+}
 .todo-item__input-arrow {
     width: 8vw;
     transform: scale(1.5);

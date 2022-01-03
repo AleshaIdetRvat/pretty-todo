@@ -1,23 +1,24 @@
-import React, { useCallback } from "react"
-import { FC, useState } from "react"
+import React, { useCallback, useEffect, FC, useState } from "react"
 import { AnimatePresence, Reorder } from "framer-motion"
 import { TodoItem } from "../TodoItem/TodoItem"
 import { ITodoItem } from "../../types/Todo"
+import { useDebounce } from "../../hooks/useDebounce"
+import { getTodosFromLS, saveTodosToLS } from "../../localStorage"
 import "./TodoPage.css"
 
 const TodoPage: FC = React.memo(() => {
-    const initialItems: ITodoItem[] = [
-        // {
-        //     completed: false,
-        //     id: "1",
-        //     text: "Go to the shop",
-        // },
-        // { completed: false, id: "2", text: "Buy some cheese 🧀" },
-        // { completed: false, id: "3", text: "Drink cup of tea" },
-        // { completed: false, id: "4", text: "Workout and sport" },
-    ]
+    const [items, setItems] = useState<ITodoItem[]>([])
 
-    const [items, setItems] = useState<ITodoItem[]>(initialItems)
+    const saveTodos = useDebounce(saveTodosToLS, 1000)
+
+    useEffect(() => {
+        const initTodos = getTodosFromLS()
+        setItems(initTodos)
+    }, [])
+
+    useEffect(() => {
+        saveTodos(items)
+    }, [items, saveTodos])
 
     const removeTodoItem = useCallback(
         (id: string) => {
@@ -26,7 +27,7 @@ const TodoPage: FC = React.memo(() => {
         [items]
     )
 
-    const addNewItem = () => {
+    const addNewItem = useCallback(() => {
         setItems([
             {
                 completed: false,
@@ -35,10 +36,15 @@ const TodoPage: FC = React.memo(() => {
             },
             ...items,
         ])
-    }
+    }, [items])
 
     const saveNewItem = (id: string, todoText: string) => {
         items.find((item) => item.id === id).text = todoText
+        setItems([...items])
+    }
+
+    const checkItem = (id: string, checked: boolean) => {
+        items.find((item) => item.id === id).completed = checked
         setItems([...items])
     }
 
@@ -54,6 +60,7 @@ const TodoPage: FC = React.memo(() => {
                     {items.map((item) => (
                         <TodoItem
                             onSave={saveNewItem}
+                            onCheck={checkItem}
                             onRemove={() => removeTodoItem(item.id)}
                             item={item}
                             key={item.id}

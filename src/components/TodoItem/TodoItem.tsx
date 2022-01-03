@@ -7,19 +7,20 @@ import { Checkbox } from "../UI/Checkbox/Checkbox"
 import "./TodoItem.css"
 
 interface TodoInnerProps {
+    isChecked: boolean
     layout: string
     onRemove: Function
     dragControls: DragControls
+    onCheck: (checked: boolean) => void
 }
 
 const TodoItemInner: FC<TodoInnerProps> = React.memo((props) => {
-    const { layout, onRemove, dragControls } = props
+    const { layout, onRemove, dragControls, isChecked, onCheck } = props
 
     const itemRef: React.Ref<HTMLDivElement> = useRef(null)
     const reorderIconRef: React.Ref<HTMLDivElement> = useRef(null)
     const deleteBackRef: React.Ref<HTMLDivElement> = useRef(null)
     const [itemWidth, setItemWidth] = useState(0)
-    const [isChecked, setIsChecked] = useState(false)
 
     useEffect(() => {
         setItemWidth(itemRef.current.offsetWidth)
@@ -42,14 +43,23 @@ const TodoItemInner: FC<TodoInnerProps> = React.memo((props) => {
                 autoTransition={0.5}
             >
                 <div className='todo-item__body' ref={itemRef}>
-                    <div className='todo-item__checkbox'>
+                    <div
+                        className='todo-item__checkbox'
+                        onTouchStart={(e) => e.stopPropagation()}
+                    >
                         <Checkbox
                             className='todo-item__checkbox-inner'
                             checked={isChecked}
-                            onChange={() => setIsChecked(!isChecked)}
+                            onChange={() => onCheck(!isChecked)}
                         />
                     </div>
-                    <p className='todo-item__text'>{layout}</p>
+                    <p
+                        className={`todo-item__text ${
+                            isChecked ? "--checked" : ""
+                        }`}
+                    >
+                        {layout}
+                    </p>
                 </div>
 
                 <div className='todo-item__delete-back' ref={deleteBackRef}>
@@ -126,13 +136,12 @@ interface ItemProps {
     children: string
     item: ITodoItem
     onRemove: Function
-    onSave: (id: string, newText: string) => any
+    onSave: (id: string, newText: string) => void
+    onCheck: (id: string, checked: boolean) => void
 }
 
 const TodoItem: FC<ItemProps> = React.memo((props) => {
-    const { children, item, onRemove, onSave } = props
-
-    const checkboxRef: React.Ref<HTMLDivElement> = useRef(null)
+    const { children, item, onRemove, onSave, onCheck } = props
 
     const dragControls = useDragControls()
 
@@ -179,6 +188,10 @@ const TodoItem: FC<ItemProps> = React.memo((props) => {
                     dragControls={dragControls}
                     onRemove={onRemove}
                     layout={children}
+                    onCheck={(checked: boolean) => {
+                        onCheck(item.id, checked)
+                    }}
+                    isChecked={item.completed}
                 />
             ) : (
                 <NewTodoMessage onBlur={blurHandler} />

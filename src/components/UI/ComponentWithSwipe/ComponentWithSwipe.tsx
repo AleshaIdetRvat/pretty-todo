@@ -153,7 +153,15 @@ const ComponentWithSwipe: FC<Props> = (props) => {
 
             translateXRef.current = sideWidth
         }
-    }, [sideWidth, ratioWhenSideOpen, onClose, onOpen, side, autoTransition])
+    }, [
+        sideWidth,
+        ratioWhenSideOpen,
+        onClose,
+        onOpen,
+        side,
+        autoTransition,
+        onTouchEnd,
+    ])
 
     const touchEndHandler: React.TouchEventHandler<HTMLElement> =
         automaticCloser

@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC } from "react"
 import { motion, useMotionValue, useTransform } from "framer-motion"
 import "./Checkbox.css"
 
@@ -25,7 +25,9 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
             />
 
             <motion.div
-                className={"custom-checkbox__body"}
+                className={`custom-checkbox__body ${
+                    checked ? "--checked" : ""
+                }`}
                 animate={{
                     scale: checked ? 1 : 0.9,
                 }}

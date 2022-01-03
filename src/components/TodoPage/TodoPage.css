@@ -1,8 +1,45 @@
-.todo-list {
+.todo-page {
+    height: 100%;
+}
+.todo-page__empty-img {
+    width: 60%;
+
+    height: 100%;
+    margin: 0 auto;
+    /* padding: 12vw 0 24vw; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    animation: start-fade 0.5s ease forwards;
+}
+#empty-icon {
+    height: 100%;
+}
+.todo-page__empty-img > svg {
+    opacity: 0.2;
+}
+.todo-page__empty-img > h2 {
+    opacity: 0.3;
+}
+.todo-page__list {
+    height: 100%;
+    animation: start-fade 0.3s ease forwards;
     list-style: none;
     padding: 18px 0 calc(18vw + 28px) 0;
 }
-.todo-list__add-btn {
+
+@keyframes start-fade-empty-icon {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}
+.todo-page__add-btn {
     position: absolute;
     right: 16px;
     bottom: 16px;

@@ -4,6 +4,7 @@ import { TodoItem } from "../TodoItem/TodoItem"
 import { ITodoItem } from "../../types/Todo"
 import { useDebounce } from "../../hooks/useDebounce"
 import { getTodosFromLS, saveTodosToLS } from "../../localStorage"
+import { TodoListEmpty2 } from "../UI/Icons/TodoListEmpty2/TodoListEmpty2"
 import "./TodoPage.css"
 
 const TodoPage: FC = React.memo(() => {
@@ -49,29 +50,63 @@ const TodoPage: FC = React.memo(() => {
     }
 
     return (
-        <>
+        <div className='todo-page'>
             <Reorder.Group
-                className='todo-list'
+                className='todo-page__list'
                 axis='y'
                 values={items}
                 onReorder={setItems}
             >
                 <AnimatePresence initial={false}>
-                    {items.map((item) => (
-                        <TodoItem
-                            onSave={saveNewItem}
-                            onCheck={checkItem}
-                            onRemove={() => removeTodoItem(item.id)}
-                            item={item}
-                            key={item.id}
+                    {items.length !== 0 ? (
+                        items.map((item) => (
+                            <TodoItem
+                                onSave={saveNewItem}
+                                onCheck={checkItem}
+                                onRemove={() => removeTodoItem(item.id)}
+                                item={item}
+                                key={item.id}
+                            >
+                                {item.text}
+                            </TodoItem>
+                        ))
+                    ) : (
+                        <Reorder.Item
+                            className='todo-item'
+                            value={"empty-icon"}
+                            id={"empty-icon"}
+                            initial={{
+                                opacity: 0,
+                                scale: 0.8,
+                            }}
+                            animate={{
+                                opacity: 1,
+                                scale: 1,
+                                transition: {
+                                    duration: 0.2,
+                                    ease: "easeInOut",
+                                },
+                            }}
+                            exit={{
+                                opacity: 0,
+                                height: "0",
+                                y: "-100%",
+                                transition: {
+                                    duration: 0.4,
+                                    ease: "easeInOut",
+                                },
+                            }}
+                            dragListener={false}
                         >
-                            {item.text}
-                        </TodoItem>
-                    ))}
+                            <div className='todo-page__empty-img'>
+                                <TodoListEmpty2 />
+                            </div>
+                        </Reorder.Item>
+                    )}
                 </AnimatePresence>
             </Reorder.Group>
 
-            <button className='todo-list__add-btn' onClick={addNewItem}>
+            <button className='todo-page__add-btn' onClick={addNewItem}>
                 <svg
                     baseProfile='tiny'
                     height='12vw'
@@ -85,7 +120,7 @@ const TodoPage: FC = React.memo(() => {
                     />
                 </svg>
             </button>
-        </>
+        </div>
     )
 })
 

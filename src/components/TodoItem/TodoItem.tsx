@@ -124,6 +124,7 @@ const NewTodoMessage: FC<NewTodoMessageProps> = (props) => {
             </svg>
             <input
                 className='todo-item__input'
+                placeholder='New todo'
                 autoFocus
                 onBlur={handleBlur}
                 onKeyDown={onKeyDown}

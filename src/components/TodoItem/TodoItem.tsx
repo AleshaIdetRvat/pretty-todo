@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useRef, useState } from "react"
-import { DragControls, Reorder, useDragControls } from "framer-motion"
+import { DragControls, motion, Reorder, useDragControls } from "framer-motion"
 import { ComponentWithSwipe } from "../UI/ComponentWithSwipe/ComponentWithSwipe"
-import { ReorderIcon } from "../UI/Icons/ReorderIcon"
+import { ReorderIcon } from "../UI/Icons/ReorderIcon/ReorderIcon"
 import { ITodoItem } from "../../types/Todo"
+import { Checkbox } from "../UI/Checkbox/Checkbox"
 import "./TodoItem.css"
 
 interface TodoInnerProps {
@@ -11,7 +12,7 @@ interface TodoInnerProps {
     dragControls: DragControls
 }
 
-const TodoItemInner: FC<TodoInnerProps> = (props) => {
+const TodoItemInner: FC<TodoInnerProps> = React.memo((props) => {
     const { layout, onRemove, dragControls } = props
 
     const itemRef: React.Ref<HTMLDivElement> = useRef(null)
@@ -46,7 +47,6 @@ const TodoItemInner: FC<TodoInnerProps> = (props) => {
                 <div className='todo-item__delete-back' ref={deleteBackRef}>
                     <svg
                         fill='var(--white)'
-                        xmlns='http://www.w3.org/2000/svg'
                         viewBox='0 0 24 24'
                         width='24px'
                         height='24px'
@@ -60,8 +60,8 @@ const TodoItemInner: FC<TodoInnerProps> = (props) => {
                 <ReorderIcon
                     dragControls={dragControls}
                     style={{
-                        padding: "7px 0px 7px 7px",
-                        alignSelf: "flex-start",
+                        padding: "7px 0px 7px 9px",
+
                         width: "clamp(20px, 10vw, 60px)",
                         height: "clamp(20px, 10vw, 60px)",
                     }}
@@ -69,7 +69,36 @@ const TodoItemInner: FC<TodoInnerProps> = (props) => {
             </div>
         </>
     )
+})
+
+interface NewTodoMessageProps {
+    onBlur: React.FocusEventHandler<HTMLInputElement>
 }
+
+const NewTodoMessage: FC<NewTodoMessageProps> = (props) => {
+    const { onBlur } = props
+
+    const handleBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
+        onBlur(e)
+    }
+
+    const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+        const input = e.target as HTMLInputElement
+        if (e.key === "Enter") {
+            input.blur()
+        }
+    }
+
+    return (
+        <input
+            className='todo-item__input'
+            autoFocus
+            onBlur={handleBlur}
+            onKeyDown={onKeyDown}
+        />
+    )
+}
+
 interface ItemProps {
     children: string
     item: ITodoItem
@@ -79,11 +108,14 @@ interface ItemProps {
 
 const TodoItem: FC<ItemProps> = React.memo((props) => {
     const { children, item, onRemove, onSave } = props
+
+    const [isChecked, setIsChecked] = useState(false)
+
+    const checkboxRef: React.Ref<HTMLDivElement> = useRef(null)
+
     const dragControls = useDragControls()
 
-    const blurHandler: React.FocusEventHandler<HTMLTextAreaElement> = (e) => {
-        console.log("New text:", e.target.value)
-
+    const blurHandler: React.FocusEventHandler<HTMLInputElement> = (e) => {
         const newText = e.target.value.trim()
         if (newText !== "") {
             onSave(item.id, newText)
@@ -121,6 +153,13 @@ const TodoItem: FC<ItemProps> = React.memo((props) => {
             onTouchMove={(e) => e.stopPropagation()}
             onTouchStart={(e) => e.stopPropagation()}
         >
+            <div className='todo-item__checkbox' ref={checkboxRef}>
+                <Checkbox
+                    className='todo-item__checkbox-inner'
+                    checked={isChecked}
+                    onChange={() => setIsChecked(!isChecked)}
+                />
+            </div>
             {children !== "" ? (
                 <TodoItemInner
                     dragControls={dragControls}
@@ -128,11 +167,7 @@ const TodoItem: FC<ItemProps> = React.memo((props) => {
                     layout={children}
                 />
             ) : (
-                <textarea
-                    className='todo-item__input'
-                    autoFocus
-                    onBlur={blurHandler}
-                />
+                <NewTodoMessage onBlur={blurHandler} />
             )}
         </Reorder.Item>
     )

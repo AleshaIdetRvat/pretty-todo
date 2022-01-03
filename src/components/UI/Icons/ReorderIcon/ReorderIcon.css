@@ -1,0 +1,11 @@
+.reorder-icon {
+    animation: start-fade-reorder 0.5s ease forwards;
+}
+@keyframes start-fade-reorder {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}

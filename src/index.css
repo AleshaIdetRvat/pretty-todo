@@ -20,16 +20,26 @@
     --red: #9d0006;
     --yellow: #b57614;
 
-    --brightBlack: #9d8374;
+    --brightBlack: #7c6f64;
+    --brightWhite: #9d8374;
     --brightBlue: #458588;
     --brightCyan: #689d69;
     --brightGreen: #98971a;
     --brightPurple: #b16186;
     --brightRed: #cc241d;
-    --brightWhite: #7c6f64;
     --brightYellow: #d79921;
 
     --main-shadow: rgba(163, 163, 163, 0.3) 0px 4px 12px;
+}
+
+/* global animations */
+@keyframes start-fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 html,
@@ -46,4 +56,6 @@ body {
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    animation: start-fade 1s ease forwards;
 }

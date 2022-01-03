@@ -6,17 +6,15 @@ import { ITodoItem } from "../../types/Todo"
 import "./TodoPage.css"
 
 const TodoPage: FC = React.memo(() => {
-    console.log("Todo page render")
-
     const initialItems: ITodoItem[] = [
-        {
-            completed: false,
-            id: "1",
-            text: "🍅 Tomato 🍅 Tomato🍅 Tom ato🍅 Tsos ddmato🍅 Toma to🍅 Tomato",
-        },
-        { completed: false, id: "2", text: "🥒 Cucumber" },
-        { completed: false, id: "3", text: "🧀 Cheese" },
-        { completed: false, id: "4", text: "🥬 Lettuce" },
+        // {
+        //     completed: false,
+        //     id: "1",
+        //     text: "Go to the shop",
+        // },
+        // { completed: false, id: "2", text: "Buy some cheese 🧀" },
+        // { completed: false, id: "3", text: "Drink cup of tea" },
+        // { completed: false, id: "4", text: "Workout and sport" },
     ]
 
     const [items, setItems] = useState<ITodoItem[]>(initialItems)
@@ -29,13 +27,14 @@ const TodoPage: FC = React.memo(() => {
     )
 
     const addNewItem = () => {
-        const itemsClone = [...items]
-        itemsClone.unshift({
-            completed: false,
-            id: `${Date.now()}`,
-            text: "",
-        })
-        setItems(itemsClone)
+        setItems([
+            {
+                completed: false,
+                id: `${Date.now()}`,
+                text: "",
+            },
+            ...items,
+        ])
     }
 
     const saveNewItem = (id: string, todoText: string) => {

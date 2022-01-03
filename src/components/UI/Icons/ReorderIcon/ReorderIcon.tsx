@@ -1,4 +1,6 @@
 import { DragControls } from "framer-motion"
+import "./ReorderIcon.css"
+
 interface Style {
     [key: string]: string
 }
@@ -11,6 +13,7 @@ function ReorderIcon({ dragControls, style }: Props) {
     const fillColor = "var(--purple)"
     return (
         <svg
+            className='reorder-icon'
             style={{ opacity: 0.2, ...style }}
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 39 39'

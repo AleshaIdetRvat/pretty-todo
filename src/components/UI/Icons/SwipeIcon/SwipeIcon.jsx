@@ -12,9 +12,6 @@ const SwipeIcon = () => {
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
             className='swipe-icon'
-            // initial={{ translateX: "10%" }}
-            // animate={{ translateX: "0%" }}
-            // transition={svgTransition}
         >
             <motion.path
                 initial={{ pathLength: 0.2, opacity: 0.5 }}

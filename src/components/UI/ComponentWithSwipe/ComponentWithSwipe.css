@@ -4,8 +4,6 @@
 }
 .container-with-swipe__body {
     display: grid;
-    /* display: flex; */
     height: 100%;
     grid-auto-flow: column;
-    /* grid-template-columns: auto 1fr; */
 }

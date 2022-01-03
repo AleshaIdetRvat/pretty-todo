@@ -56,7 +56,7 @@ const ComponentWithSwipe: FC<Props> = (props) => {
             } else {
                 translateXRef.current = 0
             }
-            bodyRef.current.style.transition = `${autoTransition}s`
+            // bodyRef.current.style.transition = `${autoTransition}s`
 
             containerRef.current.style.width = `${bodyRef.current.offsetWidth}px`
 

@@ -100,8 +100,6 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
                         }}
                         transition={{
                             type: "spring",
-                            // stiffness: 300,
-                            // damping: 20,
                             duration: 0.6,
                         }}
                     />
@@ -116,7 +114,7 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
                         animate={{
                             stroke: checked
                                 ? "var(--brightCyan)"
-                                : "var(--black)",
+                                : "var(--foreground)",
                             opacity: checked ? 1 : 0.5,
                         }}
                         transition={{

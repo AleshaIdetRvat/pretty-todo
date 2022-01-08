@@ -14,6 +14,7 @@
     align-items: center;
 }
 .todo-item__input {
+    color: var(--foreground);
     font-family: inherit;
     font-size: 5vw;
     padding: 5px 0 5px 0;
@@ -25,12 +26,12 @@
 }
 .todo-item__input::placeholder {
     opacity: 0.5;
-    color: var(--black);
+    color: var(--foreground);
 }
 .todo-item__input-arrow {
     width: 8vw;
     transform: scale(1.5);
-    animation: start-fade 0.3s ease forwards;
+    animation: start-fade 1s ease forwards;
 }
 .todo-item__body {
     padding: 5px 0 5px;
@@ -45,6 +46,10 @@
     display: flex;
     align-items: center;
     line-height: 6vw;
+    transition: 0.15s;
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: rgba(0, 0, 0, 0);
 }
 .todo-item__text.--checked {
     display: flex;
@@ -52,8 +57,7 @@
     line-height: 6vw;
 
     animation: text-checked 0.4s ease;
-    text-decoration: line-through;
-    text-decoration-thickness: 2px;
+    text-decoration-color: var(--foreground);
     opacity: 0.4;
 }
 @keyframes text-checked {

@@ -3,10 +3,8 @@ import { HeaderContainer } from "./Header/HeaderContainer"
 import { TodoPage } from "./TodoPage/TodoPage"
 
 const AppRoutes = () => {
-    console.log("App routes render")
-
     return (
-        <BrowserRouter>
+        <>
             <HeaderContainer />
             <div className='app__content'>
                 <Routes>
@@ -14,7 +12,7 @@ const AppRoutes = () => {
                     {/* <Route path='teams' element={<Teams />}/> */}
                 </Routes>
             </div>
-        </BrowserRouter>
+        </>
     )
 }
 

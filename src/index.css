@@ -5,13 +5,17 @@
     box-sizing: border-box;
 }
 
-:root {
+.theme-default {
     /* "name": "Gruvbox Light" */
-    --background: #fbf1c7;
     --selectionBackground: #d5c4a1;
+    /* --background: #282828; */
+    --background: #fbf1c7;
+    /* --foreground: #fbf1c7; */
     --foreground: #282828;
 
+    /* --white: #3c3836; */
     --white: #fbf1c7;
+    /* --black: #fbf1c7; */
     --black: #3c3836;
     --blue: #076678;
     --cyan: #427b58;
@@ -28,8 +32,101 @@
     --brightPurple: #b16186;
     --brightRed: #cc241d;
     --brightYellow: #d79921;
+}
+.theme-github {
+    /* Github theme */
+    --background: #15181d;
+    --foreground: #a8b2bd;
+    --white: #ffffff;
+    --black: #15181d;
 
-    --main-shadow: rgba(163, 163, 163, 0.3) 0px 4px 12px;
+    --blue: #6ca4f8;
+    --brightBlack: #4d4d4d;
+    --brightBlue: #6ca4f8;
+    --brightCyan: #2b7489;
+    --brightGreen: #56d364;
+    --brightPurple: #f78166;
+    --brightRed: rgb(206, 53, 84);
+    --brightWhite: #ffffff;
+    --brightYellow: #e3b341;
+    --cursorColor: #c9d1d9;
+    --cyan: #2b7489;
+    --green: #56d364;
+    --purple: #f78166;
+    --red: crimson;
+    --selectionBackground: #3b5070;
+    --yellow: #e3b341;
+}
+
+.theme-fideloper {
+    /* 3Fideloper theme */
+    --background: #000000;
+    --black: #292f33;
+    --blue: #2e78c2;
+    --brightBlack: #092028;
+    --brightBlue: #7c85c4;
+    --brightCyan: #e6905f;
+    --brightGreen: #d4605a;
+    --brightPurple: #5c5db2;
+    --brightRed: #c43f4a;
+    --brightWhite: #fcf4df;
+    --brightYellow: #a86671;
+    --cursorColor: #d4605a;
+    --cyan: #309186;
+    --foreground: #dbdae0;
+    --green: #eeaa9b;
+    --purple: #b3b3b3;
+    --red: #cb1e2d;
+    --selectionBackground: #efb8ac;
+    --white: #e9e4d6;
+    --yellow: #b7ab9b;
+}
+
+.theme-atomone-light {
+    /* AtomOneLight */
+    --background: #f9f9f9;
+    --black: #000000;
+    --blue: #2f5af3;
+    --brightBlack: #000000;
+    --brightBlue: #2f5af3;
+    --brightCyan: #3f953a;
+    --brightGreen: #3f953a;
+    --brightPurple: #2f5af3;
+    --brightRed: #de3e35;
+    --brightWhite: #ffffff;
+    --brightYellow: #d2b67c;
+    --cursorColor: #bbbbbb;
+    --cyan: #3f953a;
+    --foreground: #2a2c33;
+    --green: #3f953a;
+    --purple: #2f5af3;
+    --red: #de3e35;
+    --selectionBackground: #ededed;
+    --white: #f1f5ff;
+    --yellow: #d2b67c;
+}
+.theme-bright-lights {
+    /* Bright Lights */
+    --background: #1f1f1f;
+    --black: #1f1f1f;
+    --blue: #76d4ff;
+    --brightBlack: #1f1f1f;
+    --brightBlue: #76d5ff;
+    --brightCyan: #99c560;
+    --brightGreen: #b7e876;
+    --brightPurple: #59a6c7;
+    --brightRed: #ff355b;
+    --brightWhite: #c2c8d7;
+    --brightYellow: #ffc251;
+    --cursorColor: #f34b00;
+    --cyan: #6cbfb5;
+    --foreground: #d2e0e9;
+    --green: #b7e876;
+    --purple: #59a6c7;
+    --red: #ff355b;
+    --selectionBackground: #b3c9d7;
+    --white: #ffffff;
+    --yellow: #ffc251;
 }
 
 /* global animations */
@@ -48,14 +145,18 @@ body,
     height: calc(var(--vh, 1vh) * 100);
 }
 body {
+    --main-shadow: rgba(0, 0, 0, 0.13) 0px 4px 12px;
+
+    background-color: var(--background);
+}
+#root {
     font-size: 24px;
     color: var(--foreground);
-    background-color: var(--background);
     margin: 0;
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    animation: start-fade 1s ease forwards;
+    animation: start-fade 1.5s ease forwards;
 }

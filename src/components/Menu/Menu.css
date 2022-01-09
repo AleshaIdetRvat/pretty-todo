@@ -27,10 +27,14 @@
     align-items: center;
 }
 .options-list__link > svg {
-    margin-right: 5px;
-    height: 25px;
-    width: 25px;
-    transform: scale(1.5) translateY(2px);
+    margin-right: 8px;
+    height: 22px;
+    width: 22px;
+    /* height: 25px;
+    width: 25px; */
+
+    /* transform: scale(1.5) translateY(2px); */
+    transform: translateY(-1px);
     fill: var(--foreground);
 }
 .options-list__link.--active {

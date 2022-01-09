@@ -14,10 +14,12 @@
     max-height: calc(var(--vh, 1vh) * 100);
 
     overflow: hidden;
-    background-color: var(--brightPurple);
+    /* background-color: var(--brightPurple); */
+
     box-shadow: var(--main-shadow) -4px;
 }
 .app__content {
+    margin-top: -20px;
     border-radius: 18px 18px 0 0;
     flex: 1 1 auto;
     height: 100%;

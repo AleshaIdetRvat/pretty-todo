@@ -4,18 +4,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+a,
+button {
+    -webkit-tap-highlight-color: transparent;
+}
 
 .theme-default {
     /* "name": "Gruvbox Light" */
     --selectionBackground: #d5c4a1;
-    /* --background: #282828; */
     --background: #fbf1c7;
-    /* --foreground: #fbf1c7; */
     --foreground: #282828;
 
-    /* --white: #3c3836; */
     --white: #fbf1c7;
-    /* --black: #fbf1c7; */
     --black: #3c3836;
     --blue: #076678;
     --cyan: #427b58;

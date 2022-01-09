@@ -3,13 +3,13 @@ import { SwipeIcon } from "../UI/Icons/SwipeIcon/SwipeIcon"
 import "./Header.css"
 
 interface Props {
-    title: string //  (!)
-    imgSrc: string // (!)
+    title: string
+    imgElem: React.ReactNode
     backgroundColor: string
 }
 
 const Header: FC<Props> = (props) => {
-    const { title, imgSrc, backgroundColor } = props
+    const { title, imgElem, backgroundColor } = props
 
     return (
         <header className='header' style={{ backgroundColor: backgroundColor }}>
@@ -17,9 +17,7 @@ const Header: FC<Props> = (props) => {
                 <div className='header__swipe-icon'>
                     <SwipeIcon />
                 </div>
-                <div className='header__image-container'>
-                    <img className='header__image' src={imgSrc} alt='header' />
-                </div>
+                <div className='header__image-container'>{imgElem}</div>
 
                 <h1 className='header__title'>{title}</h1>
             </div>

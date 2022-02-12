@@ -17,6 +17,7 @@
 }
 #empty-icon {
     height: 100%;
+    align-self: center;
 }
 .todo-page__empty-img > svg {
     opacity: 0.2;
@@ -25,6 +26,7 @@
     opacity: 0.3;
 }
 .todo-page__list {
+    height: 100%;
     animation: start-fade 0.3s ease forwards;
     list-style: none;
     padding: 18px 0 calc(18vw + 28px) 0;

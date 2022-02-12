@@ -8,8 +8,8 @@ import "./App.css"
 
 function App() {
     useEffect(() => {
-        const savedThemeClass = getAppThemeClassName()
-        document.body.classList.add(savedThemeClass)
+        const savedTheme = getAppThemeClassName()
+        document.body.classList.add(`theme-${savedTheme}`)
     }, [])
 
     return (

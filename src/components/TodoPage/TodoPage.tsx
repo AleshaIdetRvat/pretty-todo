@@ -14,7 +14,6 @@ const TodoPage: FC = React.memo(() => {
 
     useEffect(() => {
         const initTodos = getTodosFromLS()
-
         setItems(initTodos)
     }, [])
 

@@ -33,6 +33,31 @@ button {
     --brightRed: #cc241d;
     --brightYellow: #d79921;
 }
+
+.theme-light-sky {
+    /* "name": "Light" */
+    --background: #f9f9f9;
+    --black: #161616;
+    --blue: #7a7a7a;
+    --brightBlack: #161616;
+    --brightBlue: #3a3a3a;
+    --brightCyan: #3b3b3b;
+    --brightGreen: #aaaaaa;
+    --brightCyan: #81b486;
+    --brightPurple: rgb(139, 154, 202);
+    --brightRed: #e46d77;
+    --brightWhite: #ffffff;
+    --brightYellow: #d2b67c;
+    --cursorColor: #aaaaaa;
+    --cyan: #aaaaaa;
+    --foreground: #2a2c33;
+    --green: #cab87a;
+    --purple: #2e2e2e;
+    --red: #de3e35;
+    --selectionBackground: #ededed;
+    --white: #f1f5ff;
+    --yellow: #d2b67c;
+}
 .theme-github {
     /* Github theme */
     --background: #15181d;

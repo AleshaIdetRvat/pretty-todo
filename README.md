@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+_Приложение работает корректно только для мобильных устройств,
+для того чтобы простестировать его работу на ПК необходимо в dev-tools выбрать мобильный тип экрана_
+
+# Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
